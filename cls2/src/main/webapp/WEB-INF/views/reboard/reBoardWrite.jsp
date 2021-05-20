@@ -5,15 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/cafe/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/cafe/css/user.css">
-<script type="text/javascript" src="/cafe/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/cafe/js/w3color.js"></script>
+<link rel="stylesheet" type="text/css" href="/cls2/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/cls2/css/user.css">
+<script type="text/javascript" src="/cls2/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/cls2/js/w3color.js"></script>
 <style type="text/css"></style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#hbtn').click(function() {
-			$(location).attr('href', '/cafe/main.cafe');
+			$(location).attr('href', '/cls2/main.cls');
 		});
 		
 		$('#rbtn').click(function() {
@@ -37,11 +37,11 @@
 	<div class="w3-content mxw750 w3-maring-top">
 		<h1 class="w3-green w3-center w3-padding w3-margin-bottom">게시글 작성</h1>
 		
-		<form method="POST" action="/cafe/reboard/reBoardWriteProc.cafe" name="frm" id="frm"
+		<form method="POST" action="/cls2/reboard/reBoardWriteProc.cls" name="frm" id="frm"
 				class="w3-col w3-round-large w3-card-4 w3-margin-bottom">
 			<input type="hidden" name="mno" value="${DATA.mno}">
 			<div class="w3-col w3-center box120 pdAll10">
-				<img src="/cafe/img/avatar/${DATA.avatar}" class="inblock w3-circle avtBox100 border3px w3-card-2">
+				<img src="/cls2/img/avatar/${DATA.avatar}" class="inblock w3-circle avtBox100 border3px w3-card-2">
 				<span class="w3-col ft10"><b>${SID}</b></span>
 			</div>
 			<div class="w3-rest w3-padding">

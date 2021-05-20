@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/cafe/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/cafe/css/user.css">
-<script type="text/javascript" src="/cafe/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/cafe/js/w3color.js"></script>
+<link rel="stylesheet" type="text/css" href="/cls2/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/cls2/css/user.css">
+<script type="text/javascript" src="/cls2/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/cls2/js/w3color.js"></script>
 <style type="text/css">
 	label.ft14 {
 		line-height: 200%;
@@ -31,7 +31,7 @@
 			url = '';
 			switch(bid){
 			case 'hbtn':
-				url = '/cafe/main.cafe';
+				url = '/cls2/main.cls';
 				break;
 			case 'rbtn':
 				document.frm.reset();
@@ -159,7 +159,7 @@
 		로 처리하면 링크 기능을 제거해 준다. 
  --%>	
 		<!-- form 태그 -->
-		<form method="POST" action="/cafe/board/boardWriteProc.cafe" name="frm" id="frm" encType="multipart/form-data"
+		<form method="POST" action="/cls2/board/boardWriteProc.cls" name="frm" id="frm" encType="multipart/form-data"
 			class="w3-col w3-padding w3-margin-bottom w3-card-4 ">
 			<div class="w3-col w3-margin-top pdb10 w3-border-bottom w3-border-light-grey">
 				<label for="title" class="w3-col w150 w3-center w3-text-grey pdt5 ft14">글제목</label>
@@ -177,12 +177,12 @@
 					<%--
 						<div class="inblock box120 pdAll10 mgl10 w3-border w3-border-grey w3-card">
 							<div class="w3-col imgBox100"> 
-								<img class="w3-col img100" src="/cafe/img/upload/noimage.jpg" id="img_file1">
+								<img class="w3-col img100" src="/cls2/img/upload/noimage.jpg" id="img_file1">
 							</div>
 						</div>
 						<div class="inblock box120 pdAll10 w3-border w3-border-grey w3-card">
 							<div class="w3-col imgBox100"> 
-								<img class="w3-col img100" src="/cafe/img/upload/noimage.jpg" id="img_file2">
+								<img class="w3-col img100" src="/cls2/img/upload/noimage.jpg" id="img_file2">
 							</div>
 						</div>
 					 --%>

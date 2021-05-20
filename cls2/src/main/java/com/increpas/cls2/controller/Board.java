@@ -20,4 +20,27 @@ public class Board {
 	public ModelAndView boardList(ModelAndView mv) {
 		return mv;
 	}
+	
+	@RequestMapping("/boardWrite.cls")
+	public ModelAndView boardWrite(HttpSession session, ModelAndView mv) {
+		if(isLogin(session)) {
+			mv.setViewName("/cls2/");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("/boardDetail.cls")
+	public ModelAndView boardDetail(ModelAndView mv) {
+		return mv;
+	}
+	
+	@RequestMapping("/boardEdit.cls")
+	public ModelAndView boardEdit(HttpSession session, ModelAndView mv) {
+		if(isLogin(session)) {
+			mv.setViewName("/cls2/");
+		}
+		
+		return mv;
+	}
 }

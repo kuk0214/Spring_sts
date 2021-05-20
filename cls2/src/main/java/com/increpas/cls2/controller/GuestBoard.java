@@ -22,7 +22,10 @@ public class GuestBoard {
 	}
 	
 	@RequestMapping("/gBoardWrite.cls")
-	public ModelAndView gBoardWrite(ModelAndView mv) {
+	public ModelAndView gBoardWrite(HttpSession session, ModelAndView mv) {
+		if(isLogin(session)) {
+			mv.setViewName("/cls2/");
+		}
 		return mv;
 	}
 }

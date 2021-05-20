@@ -4,12 +4,13 @@ import java.io.IOException;
 
 import javax.servlet.http.*;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.increpas.cls2.dao.MemberDao;
 import com.increpas.cls2.vo.MemberVO;
 
 
@@ -26,6 +27,8 @@ import com.increpas.cls2.vo.MemberVO;
 // 이 클래스의 함수를 요청할 때 공통적으로 회원관련된 요청을 할 것이고 
 // 그 때마다 앞에 붙여줄 경로는 컨트롤러에서 공통적으로 처리하기로 한다.
 public class Member {
+	@Autowired
+	MemberDao mDao;
 	
 	@RequestMapping("/login.cls")
 	public ModelAndView getLogin(HttpSession session, ModelAndView mv, RedirectView rv) {
@@ -77,6 +80,17 @@ public class Member {
 		
 		mv.setView(rv);
 		return mv;
+	}
+	
+	/*
+		회원가입 아이디체크 요청 처리
+	 */
+	@RequestMapping("/idCheck.cls")
+	public String idCheck(String id) {
+		int cnt = mDao.getIdCnt(id);
+		System.out.println("*********** idCheck cnt : " + cnt);
+		
+		return null;
 	}
 	
 	public boolean isLogin(HttpSession session) {

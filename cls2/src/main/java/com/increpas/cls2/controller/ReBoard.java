@@ -20,4 +20,20 @@ public class ReBoard {
 	public ModelAndView reBoardList(ModelAndView mv) {
 		return mv;
 	}
+	
+	@RequestMapping("reBoardWrite.cls")
+	public ModelAndView reBoardWrite(HttpSession session, ModelAndView mv) {
+		if(isLogin(session)) {
+			mv.setViewName("/cls2/");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("reBoardEdit.cls")
+	public ModelAndView reBoardEdit(HttpSession session, ModelAndView mv) {
+		if(isLogin(session)) {
+			mv.setViewName("/cls2/");
+		}
+		return mv;
+	}
 }

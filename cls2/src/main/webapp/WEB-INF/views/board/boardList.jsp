@@ -90,10 +90,10 @@
 				<span class="w3-col w100 h25 w3-lime w3-hover-light-green w3-button w3-right" id="lbtn">login</span>
 				<span class="w3-col w100 h25 w3-lime w3-hover-amber w3-button w3-right" id="jbtn">join</span>
 		</c:if>
-		<c:if test="${not empty SID}">
+		<%-- <c:if test="${not empty SID}"> --%>
 				<span class="w3-col w100 h25 w3-lime w3-hover-deep-orange w3-button w3-right" id="wbtn">write</span>
 				<span class="w3-col w100 h25 w3-lime w3-hover-orange w3-button w3-right" id="outbtn">logout</span>
-		</c:if>
+		<%-- </c:if> --%>
 			</div>
 		</div>
 		

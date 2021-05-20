@@ -133,10 +133,10 @@
 			<h1 class="w3-green w3-center w3-padding mg0">댓글 게시판</h1>
 			<nav class="w3-bar w3-pale-yellow">
 				<div class="w3-col w150 w3-left w3-button w3-small w3-amber" id="hbtn">home</div>
-<c:if test="${not empty SID}">
+<%-- <c:if test="${not empty SID}"> --%>
 				<div class="w3-col w150 w3-left w3-button w3-small w3-lime w3-right" id="wbtn">글작성</div>
 				<div class="w3-col w150 w3-left w3-button w3-small w3-light-green w3-right" id="outbtn">logout</div>
-</c:if>
+<%-- </c:if> --%>
 <c:if test="${empty SID}">
 				<div class="w3-col w150 w3-left w3-button w3-small w3-deep-orange w3-right" id="lbtn">login</div>
 				<div class="w3-col w150 w3-left w3-button w3-small w3-yellow w3-right" id="jbtn">join</div>
