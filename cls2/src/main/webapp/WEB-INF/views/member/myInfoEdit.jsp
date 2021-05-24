@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/cafe/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/cafe/css/user.css">
-<script type="text/javascript" src="/cafe/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/cafe/js/w3color.js"></script>
+<link rel="stylesheet" type="text/css" href="/cls2/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/cls2/css/user.css">
+<script type="text/javascript" src="/cls2/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/cls2/js/w3color.js"></script>
 <style type="text/css">
 	label {
 		font-size: 12pt;
@@ -27,7 +27,7 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
-		/* $('[src="/cafe/img/avatar/${DATA.avatar}"]').parent().next().attr('checked', 'checked'); */
+		/* $('[src="/cls2/img/avatar/${DATA.avatar}"]').parent().next().attr('checked', 'checked'); */
 		$('#${DATA.ano}').prop('checked', 'true');
 		
 		var pwexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#*-_])[a-zA-Z][a-zA-Z0-9!@#*-_]{4,7}$/;
@@ -161,7 +161,7 @@
 		
 		// Home 버튼 이벤트 처리
 		$('#hbtn').click(function() {
-			$(location).attr('href', '/cafe/main.cafe'); 
+			$(location).attr('href', '/cls2/main.cls'); 
 		});
 		
 		// form submit 이벤트
@@ -290,7 +290,8 @@
 	<div class="w3-content mxw650 w3-center">
 		<h1 class="w3-padding w3-card-4 mgt20 w3-green">내 정보 수정</h1>
 		
-		<form method="POST" action="/cafe/member/myInfoEditProc.cafe" name="frm" id="frm">
+		<form method="POST" action="/cls2/member/myInfoEditProc.cls" name="frm" id="frm">
+			<input type="hidden" name="id" value="${SID}">
 			<div class="w3-col w3-margin-top w3-card-4 w3-padding w3-round-large">
 				<div class="w3-col pdt10 w3-margin-top">
 					<label class="w3-col m3 w3-rigth-align w3-text-grey">회원번호 : </label>
@@ -326,7 +327,7 @@
 				</div>
 				<div class="w3-col w3-margin-top">
 					<label class="w3-col m3 w3-rigth-align w3-text-grey">회원성별 : </label>
-					<span id="gen" class="w3-col m9">${DATA.gen}</span>
+					<span id="gen" class="w3-col m9">${DATA.gen eq 'M' ? '남자' : '여자'}</span>
 				</div>
 				<div class="w3-col w3-margin-top" id="avtfr">
 				<label class="w3-col m3 w3-rigth-align w3-text-grey">아 바 타 : </label>
@@ -335,9 +336,9 @@
 					<c:forEach var="data" items="${LIST}">
 						 	<div class="avtbox">
 						 		<label for="${data.ano}">
-						 			<img src="/cafe/img/avatar/${data.avatar}" class="w3-col avtimg">
+						 			<img src="/cls2/img/avatar/${data.avatar}" class="w3-col avtimg">
 						 		</label>
-						 		<input type="radio" name="avt" id="${data.ano}" value="${data.ano}">
+						 		<input type="radio" name="ano" id="${data.ano}" value="${data.ano}">
 						 	</div>
 				 	</c:forEach>
 				 		</div>

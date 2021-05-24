@@ -1,5 +1,6 @@
 package com.increpas.cls2.controller;
 
+import java.util.*;
 import java.io.IOException;
 
 import javax.servlet.http.*;
@@ -7,6 +8,8 @@ import javax.servlet.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -60,37 +63,98 @@ public class Member {
 		return mv;
 	}
 	
+	// 로그인 처리
 	@RequestMapping("/loginProc.cls")
-	public ModelAndView loginProc(/*String id, String pw*/ MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
-		String view = "/cls2/";
+	public ModelAndView loginProc(MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
+		rv.setUrl("/cls2/");
 		if(isLogin(session)) {
 		} else {
-			// 이 부분에서 로그인 처리...
+			int cnt = mDao.loginProc(mVO);
+			if(cnt == 1) {
+				session.setAttribute("SID", mVO.getId());
+			} else {
+				rv.setUrl("/cls2/member/login.cls");
+			}
+			
 		}
-		// 파라미터 데이터 출력
-		/*
-		 * System.out.println("*********** parameter id : " + id);
-		 * System.out.println("*********** parameter pw : " + pw);
-		 */
-		System.out.println("*********** parameter id : " + mVO.getId());
-		System.out.println("*********** parameter pw : " + mVO.getPw());
-		System.out.println("*********** parameter ano : " + mVO.getAno());
-		System.out.println(mVO);
-		rv.setUrl(view);
-		
 		mv.setView(rv);
 		return mv;
 	}
 	
-	/*
-		회원가입 아이디체크 요청 처리
-	 */
-	@RequestMapping("/idCheck.cls")
-	public String idCheck(String id) {
+	// 로그아웃 처리
+	@RequestMapping("/logout.cls")
+	public ModelAndView logout(HttpSession session, ModelAndView mv, RedirectView rv) {
+		session.removeAttribute("SID");
+		rv.setUrl("/cls2/");
+		mv.setView(rv);
+		return mv;
+	}
+	
+	// 회원가입 아이디체크 요청 처리
+	@RequestMapping(value="/idCheck.cls", method=RequestMethod.POST, params="id")
+	@ResponseBody
+	public HashMap idCheck(String id) {
 		int cnt = mDao.getIdCnt(id);
-		System.out.println("*********** idCheck cnt : " + cnt);
+		/*
+		JSP 프로젝트에서는 외부 API를 사용해서 간단하게 비동기 통신의 결과문서를
+		만들어 줄수도 있었지만 우리의 경우는
+		직접 응답 문서를 만들어주는 코드를 작성해서 응답했었다.
+			
+			예 ]
+			
+				result 라는 키값을 갖는 JSON 데이터를 만들경우
+				pw.println("{");
+				pw.println("\"result\": \"" + 결과값변수 + "\"");
+				pw.println("}");
+			
+			의 형태로 작업을 했었는데
+			이 작업이 상당히 불편하다.
+			
+			자바의 객체를 비동기 통신 응답문서(JSON 데이터)로 만들어주는 외부 API가 있는데
+			gson, jackson 이 있다.
+			
+			두가지 모두 자바 객체를 응답 문서로 만들어주는 역할을 하고 있다.
+			
+			스프링에서는
+			jackson-core 에서 이 응답문서를 만들어주는 기능을 편하게 제공해주고 있고
+			사용하는 방법은
+				1. 처리함수에 @ResonseBody 어노테이션을 붙여서 처리
+				2. 변환값에 사용할 변수 앞에 @ResponseBody 라고 붙여주는 방법
+				
+				예 ]
+					1.
+					@ResponseBody
+					public String getData() {
+						String sid = "euns";
+						return sid;
+					}
+					
+					==> 응답 문서 내용
+							euns
+					
+					2.
+					@ResponseBody
+					public HashMap getData() {
+						String sid = "euns";
+						HashMap map = new HashMap();
+						map.put("id", sid);
+						return map;
+					}
+					
+					==> 응답 문서 내용
+							{
+								"id": "euns"
+							}
+						
+		 */
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "NO");
+		map.put("id", id);
+		if(cnt != 1) {
+			map.put("result", "OK");
+		}
 		
-		return null;
+		return map;
 	}
 	
 	public boolean isLogin(HttpSession session) {
@@ -99,12 +163,113 @@ public class Member {
 		return (sid == null) ? false : true;
 	}
 	
+	// 회원가입 폼보기 요청 처리함수
 	@RequestMapping("/join.cls")
-	public ModelAndView getjoin(ModelAndView mv, HttpSession session) {
+	public ModelAndView getJoin(ModelAndView mv, HttpSession session, RedirectView rv) {
+		String view = "member/join";
 		if(isLogin(session)) {
-			mv.setViewName("/cls2/");
+			rv.setUrl("/cls2/");
+			mv.setView(rv);
+		} else {
+			mv.setViewName(view);			
+		}
+		return mv;
+	}
+	
+	// 회원리스트 보기 요청 처리함수
+	@RequestMapping("/memberList.cls")
+	public ModelAndView membList(ModelAndView mv) {
+		// 데이터베이스에서 리스트 조회하고
+		List list = mDao.membList();
+		
+		// 리스트 뷰에 심고
+		mv.addObject("LIST", list);
+		/*
+			spring에서 뷰에 데이터를 전달 하는 방법
+				adObject("키값", 데이터);
+				==>
+					req.setAttribute("키값", 데이터);
+					와 동일한 역할을 하는 함수
+		 */
+		mv.setViewName("member/memberList");
+		return mv;
+	}
+	
+	// 회원정보조회 요청 처리함수
+	@RequestMapping(value="/memberInfo.cls", params="mno", method=RequestMethod.POST)
+	public ModelAndView membInfo(ModelAndView mv, int mno) {
+		MemberVO mVO = mDao.membInfo(mno);
+		mv.addObject("DATA", mVO);
+		mv.setViewName("member/memberInfo");
+		return mv;
+	}
+	
+	// 내정보조회 요청 처리함수
+	@RequestMapping("/myInfo.cls")
+	public ModelAndView myInfo(ModelAndView mv, HttpSession session, RedirectView rv) {
+		if(isLogin(session)) {
+			String id = (String) session.getAttribute("SID");
+			MemberVO mVO = mDao.myInfo(id);
+			mv.addObject("DATA", mVO);
+			mv.setViewName("member/memberInfo");
+		} else {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
 		}
 		
+		return mv;
+	}
+	
+	// 내 정보 수정 폼보기 요청 처리함수
+	@RequestMapping("/myInfoEdit.cls")
+	public ModelAndView myInfoEdit(ModelAndView mv, HttpSession session, RedirectView rv) {
+		if(!isLogin(session)) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		String id = (String) session.getAttribute("SID");
+		MemberVO mVO = mDao.myInfo(id);
+		List list = mDao.avtInfo(mVO.getGen());
+		mv.addObject("DATA", mVO);
+		mv.addObject("LIST", list);
+		mv.setViewName("member/myInfoEdit");
+		return mv;
+	}
+	
+	// 내정보 수정 요청 처리함수
+	@RequestMapping(value="/myInfoEditProc.cls")
+	public ModelAndView myInfoEditProc(ModelAndView mv, HttpSession session, RedirectView rv, MemberVO mVO) {
+		if(!isLogin(session)) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		int cnt = mDao.myInfoEditProc(mVO);
+		if(cnt == 1) {
+			rv.setUrl("/cls2/member/myInfo.cls");
+		} else {
+			rv.setUrl("/cls2/member/myinfoEdit.cls");
+		}
+		mv.setView(rv);
+		return mv;
+	}
+	
+	// 회원가입 요청 처리함수
+	@RequestMapping(value="/joinProc.cls")
+	public ModelAndView joinProc(ModelAndView mv, HttpSession session, RedirectView rv, MemberVO mVO) {
+		if(isLogin(session)) {
+			rv.setUrl("/cls2/");
+		} else {
+			int cnt = mDao.addMember(mVO);
+			if(cnt == 1) {
+				session.setAttribute("SID", mVO.getId());
+				rv.setUrl("/cls2/");
+			} else {	
+				rv.setUrl("/cls2/member/join.cls");
+			}
+		}
+		mv.setView(rv);
 		return mv;
 	}
 }

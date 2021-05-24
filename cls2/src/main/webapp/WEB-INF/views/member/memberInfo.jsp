@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/cafe/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/cafe/css/user.css">
-<script type="text/javascript" src="/cafe/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/cafe/js/w3color.js"></script>
+<link rel="stylesheet" type="text/css" href="/cls2/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/cls2/css/user.css">
+<script type="text/javascript" src="/cls2/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/cls2/js/w3color.js"></script>
 <style type="text/css">
 	label {
 		font-size: 12pt;
@@ -24,10 +24,10 @@
 	$(document).ready(function() {
 		$('#hbtn').click(function() {
 			// addMember.jsp 페이지로 돌려보낸다.
-			$(location).attr('href', '/cafe/main.cafe');
+			$(location).attr('href', '/cls2/main.cls');
 		});
 		$('#ebtn').click(function() {
-			$(location).attr('href', '/cafe/member/myInfoEdit.cafe');
+			$(location).attr('href', '/cls2/member/myInfoEdit.cls');
 		});	
 	});
 </script>
@@ -67,7 +67,7 @@
 				</div>
 				<div class="w3-col w3-margin-top">
 					<label class="w3-col m3 w3-rigth-align w3-text-grey">회원성별 : </label>
-					<span id="gen" class="w3-col m8 mgl20 pdl20">${DATA.gen}</span>
+					<span id="gen" class="w3-col m8 mgl20 pdl20">${DATA.gen eq 'M' ? '남자' : '여자' }</span>
 				</div>
 				<div class="w3-col pdt10  w3-margin-top">
 					<label class="w3-col m3 w3-rigth-align w3-text-grey">가 입 일 : </label>
@@ -76,7 +76,7 @@
 				<div class="w3-col w3-margin-top w3-margin-bottom">
 					<label class="w3-col m3 w3-rigth-align w3-text-grey">아 바 타 : </label>
 					<div id="avt" class="w3-col m8 mgl20 pdl20">
-						<img src="/cafe/img/avatar/${DATA.avatar}" 
+						<img src="/cls2/img/avatar/${DATA.avatar}" 
 								class="w3-border w3-border-grey w3-card-2" id="avtimg${DATA.ano}">
 					</div>
 				</div>

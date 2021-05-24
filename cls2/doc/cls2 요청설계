@@ -37,6 +37,82 @@
 	뷰			:	Redirect ]
 						성공 : /cls2/main.cls
 						실패 : /cls2/member/login.cls
+
+3. 로그아웃 처리 요청
+	
+	요청내용	:	/cls2/member/logout.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	logout()
+	뷰			:	Redirect ] /cls2/main.cls
+	
+4. 회원리스트 폼보기 요청
+
+	요청내용	:	/cls2/member/memberList.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	membList()
+	뷰			:	/WEB-INF/views/member/memberList.jsp
+	
+5. 회원정보 보기 요청(mno)
+
+	요청내용	:	/cls2/member/memberInfo.cls
+	파라미터	:	mno
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	membInfo()
+	뷰			:	/WEB-INF/views/member/memberInfo.jsp
+	
+6. 내 정보 보기 요청
+
+	요청내용	:	/cls2/member/myInfo.cls
+	파라미터	:	무(sesson.SID)
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	myInfo()
+	뷰			:	/WEB-INF/views/member/memberInfo.jsp
+	
+7. 내정보 수정 폼보기 요청
+
+	요청내용	:	/cls2/member/myInfoEdit.cls
+	파라미터	:	무(SID)
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	myInfoEdit()
+	뷰			:	/WEB-INF/views/member/myInfoEdit.jsp
+	
+8. 내정보 수정 처리 요청
+
+	요청내용	:	/cls2/member/myInfoEditProc.cls
+	파라미터	:	MemberVO(pw, mail, tel, ano)
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	myInfoEditProc()
+	뷰			:	Redirect ]
+						성공 : /cls2/member/myInfo.cls
+						실패 : /cls2/member/myInfoEdit.cls
+						
+9. 회원가입 폼보기 요청
+
+	요청내용	:	/cls2/member/join.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	getJoin()
+	뷰			:	/WEB-INF/views/member/join.jsp
+	
+10. id 체크 처리 요청
+
+	요청내용	:	/cls2/member/idCheck.cls
+	파라미터	:	id
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	idCheck()
+	뷰			:	ajax	- json || text
+
+11. 회원가입 처리 요청
+
+	요청내용	:	/cls2/member/joinProc.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	joinProc()
+	뷰			:	Redirect ]
+						성공 : /cls2/main.cls
+						실패 : /cls2/member/login.cls
 						
 ====================================================================================================
 
