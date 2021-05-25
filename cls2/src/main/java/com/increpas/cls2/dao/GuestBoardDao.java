@@ -5,6 +5,7 @@ import java.util.*;
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
 
+import com.increpas.cls2.vo.BoardVO;
 import com.increpas.cls2.vo.MemberVO;
 
 public class GuestBoardDao {
@@ -17,7 +18,17 @@ public class GuestBoardDao {
 	}
 	
 	// 방명록 글 카운트 조회 전담 처리함수
-	public int writeCount(int mno) {
-		return sqlSession.selectOne("gSQL.writeCount", mno);
+	public int writeCount(String id) {
+		return sqlSession.selectOne("gSQL.writeCount", id);
+	}
+	
+	// 작성자 정보 조회 전담 처리함수
+	public BoardVO writerInfo(String id) {
+		return sqlSession.selectOne("gSQL.writerInfo", id);
+	}
+	
+	// 방명록 글등록 전담 처리함수
+	public int gBoardWriteProc(BoardVO bVO) {
+		return sqlSession.insert("gSQL.gBoardWriteProc", bVO);
 	}
 }

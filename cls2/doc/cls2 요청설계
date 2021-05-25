@@ -126,7 +126,7 @@
 	처리함수	:	gBoardList()
 	뷰			:	/WEB-INF/views/gboard/gBoardList.jsp
 	
-2. 방명록 글쓰기 요청
+2. 방명록 글쓰기 폼보기 요청
 
 	요청내용	:	/cls2/gboard/gBoardWrite.cls
 	파라미터	:	무
@@ -188,7 +188,7 @@
 						실패 : /cls2/reboard/reBoardReply.cls
 								
 6. 글 삭제 처리 요청
-	요청내용	: /cls2/reboard/reBoardDel.cafe
+	요청내용	: /cls2/reboard/reBoardDel.cls
 	파라미터	: rno, nowPage
 	컨트롤러	: com.increpas.cls2.controller.ReBoard
 	처리함수	: reBoardDel()

@@ -264,7 +264,7 @@ public class Member {
 			int cnt = mDao.addMember(mVO);
 			if(cnt == 1) {
 				session.setAttribute("SID", mVO.getId());
-				rv.setUrl("/cls2/");
+				rv.setUrl("/cls2/gboard/gBoardWrite.cls");
 			} else {	
 				rv.setUrl("/cls2/member/join.cls");
 			}

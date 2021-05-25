@@ -7,7 +7,7 @@
  	 <!-- 방명록 글 리스트 조회 질의명령 -->
  	 <select id="gBoardList" resultType="bVO">
  	 	SELECT
- 	 		gno, mno, id, savename avatar, body, wdate
+ 	 		gno, mno, id, savename avatar, body ebody, wdate
  	 	FROM
  	 		guestboard, avatar, member
  	 	WHERE
@@ -17,12 +17,47 @@
  	 </select>
  	 
  	 <!-- 방명록 카운트 조회 질의명령 -->
- 	 <select id="writeCount" resultType="int" parameterType="int">
- 	 	SLECT
- 	 		COUNT(*) cnt
+ 	 <select id="writeCount" resultType="int" parameterType="string">
+ 	 	SELECT
+ 	 		COUNT(*)
  	 	FROM
  	 		guestboard
  	 	WHERE
- 	 		writer = #{mno}
+ 	 		writer = (
+ 	 					SELECT
+ 	 						mno
+ 	 					FROM
+ 	 						member
+ 						WHERE
+ 							id = #{id}
+ 	 				 )
  	 </select>
+ 	 
+ 	 <!-- 작성자 정보 조회 질의명령 -->
+ 	 <select id="writerInfo" resultType="bVO" parameterType="string">
+ 	 	SELECT
+ 	 		mno, savename avatar
+ 	 	FROM
+ 	 		member, avatar
+ 		WHERE
+ 			avt = ano
+ 			AND id = #{id}
+ 	 </select>
+ 	 
+ 	 <!-- 방명록 등록 처리 질의명령 -->
+ 	 <insert id="gBoardWriteProc" parameterType="bVO">
+ 	 	<selectKey keyProperty="gno" resultType="int" order="BEFORE">
+ 	 		SELECT 
+				NVL(MAX(gno) + 1, 100001)
+			FROM 
+				guestboard
+ 	 	</selectKey>
+ 	 	INSERT INTO
+ 	 		guestboard(gno, writer, body)
+ 	 	VALUES(
+ 	 			#{gno}, #{mno}, #{body}
+ 	 		  )
+ 	 	
+ 	 	
+ 	 </insert>
 </mapper>

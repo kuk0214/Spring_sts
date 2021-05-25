@@ -11,4 +11,5 @@
 
 	<bean id="mDao" class="com.increpas.cls2.dao.MemberDao" />
 	<bean id="gDao" class="com.increpas.cls2.dao.GuestBoardDao" />
+	<bean id="rDao" class="com.increpas.cls2.dao.ReBoardDao" />
 </beans>

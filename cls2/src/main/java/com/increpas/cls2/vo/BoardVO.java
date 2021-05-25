@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class BoardVO {
 	private int gno, rno, bno, mno, ano, cnt, step, upno;
-	private String id, name, title, uptitle, body, sdate, avatar;
+	private String id, name, title, uptitle, body, ebody, sdate, avatar;
 	private Date wdate;
 	private Time wtime;
 	private ArrayList<FileVO> list;
@@ -89,6 +89,12 @@ public class BoardVO {
 	}
 	public void setBody(String body) {
 		this.body = body;
+	}
+	public String getEbody() {
+		return ebody;
+	}
+	public void setEbody(String ebody) {
+		this.ebody = ebody.replaceAll("\r\n", "<br>");
 	}
 	public String getSdate() {
 		return sdate;

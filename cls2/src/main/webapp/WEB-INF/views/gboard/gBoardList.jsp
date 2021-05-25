@@ -86,9 +86,9 @@
 		<nav class="w3-bar w3-pale-yellow">
 			<div class="w3-col w150 w3-left w3-button w3-amber" id="hbtn">home</div>
 <c:if test="${not empty SID}">
-	<%-- <c:if test="${CNT == 0}"> --%>
+	<c:if test="${CNT == 0}">
 			<div class="w3-col w150 w3-left w3-button w3-light-green w3-right" id="wbtn">글작성</div>
-	<%-- </c:if> --%>
+	</c:if>
 			<div class="w3-col w150 w3-left w3-button w3-lime w3-right" id="outbtn">logout</div>
 	</c:if>
 <c:if test="${empty SID}">
@@ -106,10 +106,10 @@
 			<div class="w3-rest w3-padding">
 				<div class="w3-col w3-border-bottom">
 					<span class="w3-text-left mgb10 ft10"><b>${data.id}</b></span>
-					<span class="w3-right mgb10 ft10">${data.sdate}</span>
+					<span class="w3-right mgb10 ft10">${data.wdate}</span>
 				</div>
 				<div class="w3-col w3-margin-top">
-					<span class="w3-col w3-padding ft12">${data.body}</span>
+					<span class="w3-col w3-padding ft12">${data.ebody}</span>
 				</div>
 			</div>
 		</div>

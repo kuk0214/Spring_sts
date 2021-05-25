@@ -80,12 +80,12 @@
 				// 입력태그에 입력해준다.
 				$('#upno').val(tno);
 				$('#title').val(title);
-				
+
 				$('#frm').submit();
 	
 			} else if(pre == 'e') {
 				$('#rno').val(tno);
-				
+			
 				$('#frm').attr('action', '/cls2/reboard/reBoardEdit.cls');
 				$('#frm').submit();
 			
@@ -123,7 +123,7 @@
 	</script>
 </c:if>
 	<form method="POST" action="/cls2/reboard/reBoardReply.cls" id="frm" name="frm">
-		<input type="hidden" name="nowPage" id="nowPage">
+		<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage}">
 		<input type="hidden" name="rno" id="rno">
 		<input type="hidden" name="upno" id="upno">
 		<input type="hidden" name="title" id="title">
@@ -133,10 +133,10 @@
 			<h1 class="w3-green w3-center w3-padding mg0">댓글 게시판</h1>
 			<nav class="w3-bar w3-pale-yellow">
 				<div class="w3-col w150 w3-left w3-button w3-small w3-amber" id="hbtn">home</div>
-<%-- <c:if test="${not empty SID}"> --%>
+<c:if test="${not empty SID}">
 				<div class="w3-col w150 w3-left w3-button w3-small w3-lime w3-right" id="wbtn">글작성</div>
 				<div class="w3-col w150 w3-left w3-button w3-small w3-light-green w3-right" id="outbtn">logout</div>
-<%-- </c:if> --%>
+</c:if>
 <c:if test="${empty SID}">
 				<div class="w3-col w150 w3-left w3-button w3-small w3-deep-orange w3-right" id="lbtn">login</div>
 				<div class="w3-col w150 w3-left w3-button w3-small w3-yellow w3-right" id="jbtn">join</div>
@@ -148,24 +148,24 @@
 		<div class="w3-col" style="padding-left: ${(data.step <= 2) ? data.step * 70 : 140}px">
 			<div class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding">
 				<div class="w3-col w120 w3-center pdAll10">
-					<img src="/cls2/img/avatar/${data.avatar}" class="inblock w3-circle avtBox100 border3px w3-card-2" id="a${data.rno}">
+					<img src="/cls2/img/avatar/${data.avatar}" class="inblock w3-circle avtBox100 border3px w3-card-2" id="a${data.bno}">
 					<span class="w3-col mgt10 ft10"><b>${data.id}</b></span>
 				</div>
 				<div class="w3-rest w3-padding h100per">
 					<div class="w3-col w3-border-bottom w3-border-grey">
 						<div class="w3-col w3-border-bottom">
-							<span class="mgt10 ft10"><b id="t${data.rno}">${data.title}</b></span>
-							<span class="w3-right mgb10 ft10">${data.sdate}</span>
+							<span class="mgt10 ft10"><b id="t${data.bno}">${data.title}</b></span>
+							<span class="w3-right mgb10 ft10">${data.wdate}</span>
 						</div>
 						<div class="w3-col w3-margin-top">
-							<span class="w3-col w3-padding ft12 bdminH">${data.body}</span>
+							<span class="w3-col w3-padding ft12 bdminH">${data.ebody}</span>
 						</div>
 					</div>
 					<div class="w3-col mgt10">
-						<span class="w3-button w3-blue w3-small w3-left w3-round-medium rebtn" id="r${data.rno}">댓글달기</span><!-- r100001 -->
+						<span class="w3-button w3-blue w3-small w3-left w3-round-medium rebtn" id="r${data.bno}">댓글달기</span><!-- r100001 -->
 		<c:if test="${SID eq data.id}">
-						<span class="w3-button w3-green w3-small w3-right w3-round-medium mgl10 rebtn" id="e${data.rno}">수정하기</span>
-						<span class="w3-button w3-red w3-small w3-right w3-round-medium rebtn" id="d${data.rno}">삭제하기</span>
+						<span class="w3-button w3-green w3-small w3-right w3-round-medium mgl10 rebtn" id="e${data.bno}">수정하기</span>
+						<span class="w3-button w3-red w3-small w3-right w3-round-medium rebtn" id="d${data.bno}">삭제하기</span>
 		</c:if>			
 					</div>
 				</div>
