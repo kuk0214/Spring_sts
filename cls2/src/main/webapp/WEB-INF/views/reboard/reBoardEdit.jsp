@@ -51,7 +51,7 @@
 			} else {
 				$('#body').prop('disabled', false);				
 			}
-			
+
 			// 이행을 실행하는 경우는 제목과 본문중 적어도 하나는 수정되었고
 			// 제목의 글자수도 50자 이내로 작성한 경우이므로 처리페이지를 부른다.
 			$('#frm').submit();
@@ -67,16 +67,16 @@
 				class="w3-col w3-round-large w3-card-4 w3-margin-bottom">
 			<input type="hidden" name="rno" id="rno" value="${DATA.rno}">
 			<div class="w3-col w3-center box120 pdAll10">
-				<img src="/cls2/img/avatar/${data.avatar}" class="inblock w3-circle avtBox100 border3px w3-card-2">
+				<img src="/cls2/img/avatar/${DATA.avatar}" class="inblock w3-circle avtBox100 border3px w3-card-2">
 				<span class="w3-col ft10"><b>${SID}</b></span>
 			</div>
 			<div class="w3-rest w3-padding">
 		<c:if test="${DATA.upno ne 0}">
 			<input type="hidden" name="upno" id="upno" value="${DATA.upno}" disabled>
-				<div class="w3-col">
-					<span class="w3-col "><label>원글제목</label></span>
-					<input class="w3-input w3-text-blue w3-margin-bottom noresize" value="${DATA.uptitle}" disabled>
-				</div>
+			<div class="w3-col">
+				<span class="w3-col "><label>원글제목</label></span>
+				<input class="w3-input w3-text-blue w3-margin-bottom noresize" value="${DATA.uptitle}" disabled>
+			</div>
 		</c:if>
 				<div class="w3-col w3-border-bottom">
 					<input class="w3-input noresize" id="title" name="title" placeholder="제목을 입력하세요!" value="${DATA.title}">

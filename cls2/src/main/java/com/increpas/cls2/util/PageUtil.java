@@ -40,6 +40,9 @@ public class PageUtil {
 	// totalPage 계산함수
 	public void calcPage() {
 		totalPage = (total % pageRow) == 0 ? ((total == 0) ? 1 : total / pageRow) : (total / pageRow + 1);
+		if(this.nowPage > totalPage) {
+			this.nowPage = totalPage;
+		}
 	}
 	
 	// 시작 페이지 계산 함수

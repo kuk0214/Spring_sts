@@ -74,14 +74,18 @@
  			#{rno}, #{mno}, #{title}, #{body}, #{upno}
  		)
  	 </insert>
- 	 <!-- 글번호로 게시글 조회 질의명령 -->
- 	 <select id="rnoReBoard" resultType="bVO" parameterType="int">
+ 	 <!-- 게시글 수정 데이터 조회 질의명령 -->
+ 	 <select id="reBoardEdit" resultType="bVO" parameterType="int">
  	 	SELECT
- 	 		title, body
+ 	 		r.rno, r.title, r.body, r.wmno mno, r.upno, pr.title uptitle, savename avatar
  		FROM
- 			reboard
+ 			reboard r, reboard pr, member, avatar
 		WHERE
-			rno = #{rno}
+			r.isShow = 'Y'
+			AND r.upno = pr.rno(+)
+			AND r.wmno = mno
+			AND avt = ano
+			AND r.rno = #{rno} 
  	 </select>
  	 
  	 <!-- 게시글 수정 요청 질의명령 -->
@@ -103,10 +107,20 @@
  	 <!-- 글삭제 요청 질의명령 -->
  	 <update id="reBoardDel" parameterType="int">
  	 	UPDATE
- 	 		reboard
- 		SET
- 			isShow = 'N'
+    		reboard
+		SET
+    		isShow = 'N'
 		WHERE
-			rno = #{rno}
+    		rno IN (
+				       SELECT
+				           rno
+				       FROM
+				       		reboard
+				       START WITH
+				           rno = #{rno}
+				       CONNECT BY
+				           PRIOR rno = upno
+			       )
+
  	 </update>
 </mapper>

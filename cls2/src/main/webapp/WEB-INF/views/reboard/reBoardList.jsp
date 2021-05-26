@@ -80,12 +80,12 @@
 				// 입력태그에 입력해준다.
 				$('#upno').val(tno);
 				$('#title').val(title);
-
+				$('#nowPage').val((tno == '${PAGE.endCont}') ? '${PAGE.nowPage + 1}' : '${PAGE.nowPage}');
 				$('#frm').submit();
 	
 			} else if(pre == 'e') {
 				$('#rno').val(tno);
-			
+				$('#nowPage').val(tno);
 				$('#frm').attr('action', '/cls2/reboard/reBoardEdit.cls');
 				$('#frm').submit();
 			
@@ -113,19 +113,37 @@
 			$('#frm').attr('action', '/cls2/reboard/reBoardList.cls');
 			$('#frm').submit();
 		});
+		
 	});
 </script>
 </head>
 <body>
 <c:if test="${not empty param.msg}">
-	<script type="text/javascript">
-		alert('수정 작업에 실패했습니다!');
-	</script>
+		<div id="msgWin" class="w3-modal">
+			<div class="w3-modal-content mxw600 w3-card-4">
+				<header class="w3-container w3-red">
+					<span class="w3-button w3-display-topright" id="closeBtn">&times;</span>
+					<h2>게시글 삭제 결과</h2>
+				</header>
+				<div class="w3-container w3-margin-bottom">
+					<h3 class="w3-padding w3-text-red">${param.msg}</h3>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function() {
+				$('#msgWin').css('display', 'block');
+				
+				$('#closeBtn').click(function() {
+					$('#msgWin').css('display', 'none');
+				});
+			});
+		</script>
 </c:if>
 	<form method="POST" action="/cls2/reboard/reBoardReply.cls" id="frm" name="frm">
 		<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage}">
-		<input type="hidden" name="rno" id="rno">
-		<input type="hidden" name="upno" id="upno">
+		<input type="hidden" name="rno" id="rno" value="0">
+		<input type="hidden" name="upno" id="upno" value="0">
 		<input type="hidden" name="title" id="title">
 	</form>
 	<div class="w3-content mxw750 w3-margin-top">

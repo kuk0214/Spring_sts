@@ -34,8 +34,8 @@ public class ReBoardDao {
 	}
 	
 	// 글번호로 게시글 조회 전담 처리함수
-	public BoardVO rnoReBoard(int rno) {
-		return sqlSession.selectOne("rSQL.rnoReBoard", rno);
+	public BoardVO reBoardEdit(int rno) {
+		return sqlSession.selectOne("rSQL.reBoardEdit", rno);
 	}
 	
 	// 글 수정 요청 전담 처리함수
@@ -48,4 +48,3 @@ public class ReBoardDao {
 		return sqlSession.update("rSQL.reBoardDel", rno);
 	}
 }
-

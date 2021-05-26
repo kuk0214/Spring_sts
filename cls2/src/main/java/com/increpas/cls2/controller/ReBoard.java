@@ -116,17 +116,17 @@ public class ReBoard {
 	
 	// 게시글 수정 폼보기 처리함수
 	@RequestMapping("/reBoardEdit.cls")
-	public ModelAndView reBoardEdit(HttpSession session, ModelAndView mv, RedirectView rv, int rno) {
+	public ModelAndView reBoardEdit(HttpSession session, ModelAndView mv, RedirectView rv, int rno, int nowPage) {
 		if(!isLogin(session)) {
 			rv.setUrl("/cls2/member/login.cls");
 			mv.setView(rv);
 			return mv;
 		}
-		String id = (String) session.getAttribute("SID");
-		BoardVO bVO = rDao.rnoReBoard(rno);
+		BoardVO bVO = rDao.reBoardEdit(rno);
 		mv.addObject("DATA", bVO);
-		bVO = gDao.writerInfo(id);
-		mv.addObject("data", bVO);
+		mv.addObject("nowPage", nowPage);
+		
+
 		return mv;
 	}
 	
@@ -138,6 +138,7 @@ public class ReBoard {
 			mv.setView(rv);
 			return mv;
 		}
+
 		int cnt = rDao.reBoardEditProc(bVO);
 		if(cnt != 1) {
 			rv.setUrl("/cls2/reboard/reBoardEdit.cls");
@@ -150,15 +151,24 @@ public class ReBoard {
 	
 	// 글 삭제 요청 처리함수
 	@RequestMapping("/reBoardDel.cls")
-	public ModelAndView reBoardDel(ModelAndView mv, HttpSession session, RedirectView rv, int rno) {
+	public ModelAndView reBoardDel(ModelAndView mv, HttpSession session, RedirectView rv, int rno, int nowPage) {
 		if(!isLogin(session)) {
 			rv.setUrl("/cls2/member/login.cls");
 			mv.setView(rv);
 			return mv;
 		}
+		String view = "reboard/redirectView";
 		int cnt = rDao.reBoardDel(rno);
-		rv.setUrl("/cls2/reboard/reBoardList.cls");
-		mv.setView(rv);
+		if(cnt == 0) {
+			mv.addObject("MSG", "글 삭제에 실패했습니다.");
+		} else {
+			mv.addObject("MSG", "[ " + cnt + " ] 개의 글 삭제에 성공했습니다." );			
+		}
+		
+		
+		mv.addObject("nowPage", nowPage);			
+		mv.addObject("PATH", "/cls2/reboard/reBoardList.cls");
+		mv.setViewName(view);
 		return mv;
 	}
 }
