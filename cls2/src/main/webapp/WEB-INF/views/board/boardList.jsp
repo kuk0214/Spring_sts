@@ -20,9 +20,9 @@
 		$('.datafr .w3-hover-lime').css('cursor', 'pointer').odd().addClass('w3-light-grey');
 		$('.datafr > div').last().addClass('w3-margin-bottom');
 		$('.w3-button').click(function(){
-			var bid = $(this).attr('id');
+			var tid = $(this).attr('id');
 			var url = '';
-			switch(bid){
+			switch(tid){
 			case 'hbtn':
 				url = '/cls2/main.cls';
 				break;
@@ -42,27 +42,22 @@
 			$(location).attr('href', url);
 		});
 		
-		// 페이지 버튼 이벤트 처리
-		$('.pbtn').click(function() {
-			var spage = $(this).html();
-			switch (spage) {
-			case 'pre':
-				$('#nowPage').val('${PAGE.startPage - 1}');
-				break;
-			case 'next':
-				$('#nowPage').val('${PAGE.endPage + 1}');
-				break;
-			default:
-				$('#nowPage').val(spage);
+		$('.w3-button.pbtn').click(function(){
+			var pno = $(this).html();
+			
+			if(pno == 'pre'){
+				pno = '${PAGE.startCont - 1}';
+			} else if(pno == 'next'){
+				pno = '${PAGE.endCont + 1}';
 			}
-			$('#frm').attr('action', '/cls2/board/board.cls');
+			
+			$('#nowPage').val(pno);
 			$('#frm').submit();
 		});
 		
-		// 게시글 상세보기 이벤트 처리
-		$('.list').click(function() {
+		$('.list').click(function(){
 			// 선택된 태그의 아이디값에서 두번째 자리에서부터 마지막까지 잘라서 꺼내보자.
-			// 예 ]		id="l100001"	==> 100001
+			// 	예 ] 	id="l100001"	==> 100001
 			var tno = $(this).attr('id').substring(1);
 			// 추출한 글번호를 폼태그의 입력태그에 셋팅해주고
 			$('#bno').val(tno);
@@ -77,23 +72,23 @@
 </script>
 </head>
 <body>
-	<form method="POST" action="/cls2/board/board.cls" id="frm" name="frm">
+	<form method="POST" action="/cls2/board/boardList.cls"  id="frm" name="frm">
 		<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage}"> <!-- 현재페이지 전송용 || 이동페이지 전송용 -->
 		<input type="hidden" name="bno" id="bno"> <!-- 글번호 전송용태그 -->
 	</form>
 	<div class="w3-content mxw700 w3-margin-top w3-padding">
 		<div class="w3-col w3-card-4 w3-margin-top w3-margin-bottom">
-			<h1 class="w3-blue w3-padding w3-center mg0">게시판 리스트</h1>
+			<h1 class="w3-green w3-padding w3-center mg0">게시판 리스트</h1>
 			<div class="w3-bar w3-lime h25">
 				<span class="w3-col w100 h25 w3-lime w3-hover-green w3-button" id="hbtn">home</span>
 		<c:if test="${empty SID}">
 				<span class="w3-col w100 h25 w3-lime w3-hover-light-green w3-button w3-right" id="lbtn">login</span>
 				<span class="w3-col w100 h25 w3-lime w3-hover-amber w3-button w3-right" id="jbtn">join</span>
 		</c:if>
-		<%-- <c:if test="${not empty SID}"> --%>
+		<c:if test="${not empty SID}">
 				<span class="w3-col w100 h25 w3-lime w3-hover-deep-orange w3-button w3-right" id="wbtn">write</span>
 				<span class="w3-col w100 h25 w3-lime w3-hover-orange w3-button w3-right" id="outbtn">logout</span>
-		<%-- </c:if> --%>
+		</c:if>
 			</div>
 		</div>
 		
@@ -113,11 +108,11 @@
 				<div class="w3-rest w3-center">${data.sdate}</div>
 			</div>
 	</c:forEach>
-		<c:if test="${empty LIST}">
+	<c:if test="${empty LIST}">
 			<div class="w3-col w3-padding">
 				<h2 class="w3-text-grey w3-center">입력된 데이터가 없습니다!</h2>
 			</div>
-		</c:if>
+	</c:if>
 		</div>
 		
 		<!-- 페이징 처리 -->

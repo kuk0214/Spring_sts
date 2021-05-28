@@ -1,34 +1,49 @@
 package com.increpas.cls2.vo;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import java.text.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class BoardVO {
-	private int gno, rno, bno, mno, ano, cnt, step, upno;
-	private String id, name, title, uptitle, body, ebody, sdate, avatar;
+	private int gno, rno, bno, upno, mno, ano, cnt, step;
+	private String id, name, title, uptitle, body, ebody, sdate, savename, avatar;
 	private Date wdate;
-	private Time wtime;
 	private ArrayList<FileVO> list;
+	private MultipartFile upfile;
+	private MultipartFile[] file;
 	
+	/*
+		업로드된 파일을 기억할 변수는
+			MultipartFile
+		이라는 클래스 형태로 만들어야 한다.
+		그러면 그 안에 스트림 형태로 파일의 내용이 기억되게 된다.
+		
+		이때 주의사항
+			만약 name 속성값이 하나이면 일반변수로 만들어 주면 되고
+			같은 name 속성값을 사용하는 태그가 여러개면 (다중업로드의 경우)
+			배열변수로 만들어주면 된다.
+	 */
+	
+	public MultipartFile getUpfile() {
+		return upfile;
+	}
+	public void setUpfile(MultipartFile upfile) {
+		this.upfile = upfile;
+	}
+	public MultipartFile[] getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile[] file) {
+		this.file = file;
+	}
 	public int getGno() {
 		return gno;
 	}
 	public void setGno(int gno) {
 		this.gno = gno;
-	}
-	public int getRno() {
-		return rno;
-	}
-	public void setRno(int rno) {
-		this.rno = rno;
-	}
-	public int getBno() {
-		return bno;
-	}
-	public void setBno(int bno) {
-		this.bno = bno;
 	}
 	public int getMno() {
 		return mno;
@@ -42,11 +57,23 @@ public class BoardVO {
 	public void setAno(int ano) {
 		this.ano = ano;
 	}
-	public int getCnt() {
-		return cnt;
+	public int getRno() {
+		return rno;
 	}
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	public int getBno() {
+		return bno;
+	}
+	public void setBno(int bno) {
+		this.bno = bno;
+	}
+	public int getUpno() {
+		return upno;
+	}
+	public void setUpno(int upno) {
+		this.upno = upno;
 	}
 	public int getStep() {
 		return step;
@@ -54,11 +81,11 @@ public class BoardVO {
 	public void setStep(int step) {
 		this.step = step;
 	}
-	public int getUpno() {
-		return upno;
+	public int getCnt() {
+		return cnt;
 	}
-	public void setUpno(int upno) {
-		this.upno = upno;
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 	public String getId() {
 		return id;
@@ -100,9 +127,8 @@ public class BoardVO {
 		return sdate;
 	}
 	public void setSdate() {
-		SimpleDateFormat form1 = new SimpleDateFormat("yyyy/MM/dd");
-		SimpleDateFormat form2 = new SimpleDateFormat(" HH:mm:ss");
-		sdate = form1.format(wdate) + form2.format(wtime);
+		SimpleDateFormat form = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		sdate = form.format(wdate);
 	}
 	public void setSdate(Date wdate) {
 		SimpleDateFormat form1 = new SimpleDateFormat("yyyy/MM/dd");
@@ -110,6 +136,12 @@ public class BoardVO {
 	}
 	public void setSdate(String sdate) {
 		this.sdate = sdate;
+	}
+	public String getSavename() {
+		return savename;
+	}
+	public void setSavename(String savename) {
+		this.savename = savename;
 	}
 	public String getAvatar() {
 		return avatar;
@@ -122,12 +154,7 @@ public class BoardVO {
 	}
 	public void setWdate(Date wdate) {
 		this.wdate = wdate;
-	}
-	public Time getWtime() {
-		return wtime;
-	}
-	public void setWtime(Time wtime) {
-		this.wtime = wtime;
+		setSdate();
 	}
 	public ArrayList<FileVO> getList() {
 		return list;
@@ -135,11 +162,12 @@ public class BoardVO {
 	public void setList(ArrayList<FileVO> list) {
 		this.list = list;
 	}
+	
 	@Override
 	public String toString() {
-		return "BoardVO gno=" + gno + ", rno=" + rno + ", bno=" + bno + ", mno=" + mno + ", ano=" + ano + ", cnt="
+		return "BoardVO : gno=" + gno + ", rno=" + rno + ", bno=" + bno + ", mno=" + mno + ", ano=" + ano + ", cnt="
 				+ cnt + ", step=" + step + ", id=" + id + ", name=" + name + ", title=" + title + ", body=" + body
-				+ ", sdate=" + sdate + ", avatar=" + avatar + ", wdate=" + wdate + ", wtime=" + wtime;
+				+ ", sdate=" + sdate + ", avatar=" + avatar + ", wdate=" + wdate ;
 	}
 	
 }
