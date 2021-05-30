@@ -65,7 +65,7 @@
 			if(tmp) {
 				setCnt();
 				var idCnt = getCnt();
-				$('#filefr').append('<input type="file" name="file' + idCnt + '" id="file' + idCnt + '" class="w3-col w3-input w3-round w3-border mgb10 file">');
+				$('#filefr').append('<input type="file" name="file" id="file' + idCnt + '" class="w3-col w3-input w3-round w3-border mgb10 file">');
 				
 				// 파일 꺼내오고...
 				var img = URL.createObjectURL(e.target.files[0]);
@@ -172,7 +172,7 @@
 				<label for="title" class="w3-col w150 w3-center w3-text-grey pdt5 ft14">첨부파일</label>
 				<div class="w3-rest pdr30">
 					<div class="w3-col" id="filefr">
-						<input type="file" name="file1" id="file1" class="w3-col w3-input w3-round w3-border mgb10 file">
+						<input type="file" name="file" id="file" class="w3-col w3-input w3-round w3-border mgb10 file">
 					</div>
 					<div class="w3-col w3-margin-top w3-center pdAll10" id="fileImg">
 					<%--

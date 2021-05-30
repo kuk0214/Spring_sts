@@ -43,7 +43,7 @@
 	<!-- 게시글 상세보기 질의명령 -->
 	<select id="boardDetail" resultType="bVO" parameterType="int">
 		SELECT
-		    bno, title, body ebody, id, wdate
+		    bno, title, body, body ebody, id, wdate
 		FROM
 		    board b, member m
 		WHERE
@@ -52,9 +52,9 @@
 	</select>
 	
 	<!-- 첨부파일 조회 질의명령 -->
-	<select id="subFile" resultType="bVO" parameterType="int">
+	<select id="subFile" resultType="fVO" parameterType="int">
 		SELECT
-		    savename
+		    fno, savename
 		FROM
 		    upfile
 		WHERE
@@ -99,4 +99,47 @@
 			#{fno}, #{oriname}, #{savename}, #{len}, #{dir}, #{bno}
 		)
 	</insert>
+	
+	<!-- 첨부파일 삭제 질의명령 -->
+	<update id="delSub" parameterType="int">
+		UPDATE
+			upfile
+		SET
+			isShow = 'N'
+		WHERE
+			fno = #{fno}	
+	</update>
+	
+	<!-- 게시글 삭제 질의명령 -->
+	<update id="boardDel" parameterType="int">
+		UPDATE
+			board
+		SET
+			isShow = 'N'
+		WHERE
+			bno = #{bno}
+	</update>
+	
+	<!-- 
+		mybatis 비교연산자
+			
+			eq 	: ==
+			neq	: !=
+	 -->
+	
+	<!-- 게시글 수정 질의명령 -->
+	<update id="editBoard" parameterType="bVO">
+		UPDATE
+			board
+		<set>
+			<if test="title neq null">
+				title = #{title},
+			</if>
+			<if test="body neq null">
+				body = #{body},
+			</if>
+		</set>
+		WHERE
+			bno = #{bno}
+	</update>
 </mapper>

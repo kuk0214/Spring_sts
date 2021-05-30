@@ -51,4 +51,19 @@ public class BoardDao {
 	public int addFile(FileVO fVO) {
 		return sqlSession.insert("bSQL.addFile", fVO);
 	}
+	
+	// 첨부파일 삭제 전담 처리함수
+	public int delSub(int fno) {
+		return sqlSession.update("bSQL.delSub", fno);
+	}
+	
+	// 게시글 삭제 전담 처리함수
+	public int boardDel(int bno) {
+		return sqlSession.update("bSQL.boardDel", bno);
+	}
+	
+	// 게시글 수정 전담 처리함수
+	public int boardEdit(BoardVO bVO) {
+		return sqlSession.update("bSQL.editBoard", bVO);
+	}
 }

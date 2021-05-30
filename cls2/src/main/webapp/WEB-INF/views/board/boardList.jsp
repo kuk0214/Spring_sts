@@ -46,9 +46,9 @@
 			var pno = $(this).html();
 			
 			if(pno == 'pre'){
-				pno = '${PAGE.startCont - 1}';
+				pno = '${PAGE.startPage - 1}';
 			} else if(pno == 'next'){
-				pno = '${PAGE.endCont + 1}';
+				pno = '${PAGE.endPage + 1}';
 			}
 			
 			$('#nowPage').val(pno);
