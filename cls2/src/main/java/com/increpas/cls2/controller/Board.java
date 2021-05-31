@@ -2,21 +2,21 @@ package com.increpas.cls2.controller;
 
 import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.*;
+import org.springframework.web.servlet.view.*;
 
-import com.increpas.cls2.dao.BoardDao;
-import com.increpas.cls2.util.FileUtil;
-import com.increpas.cls2.util.PageUtil;
+import com.increpas.cls2.dao.*;
+import com.increpas.cls2.service.*;
+import com.increpas.cls2.util.*;
 import com.increpas.cls2.vo.*;
+import com.increpas.home.HomeController;
 
 @Controller
 @RequestMapping("/board")
@@ -25,6 +25,10 @@ public class Board {
 	BoardDao bDao;
 	@Autowired
 	FileUtil fUtil;
+	@Autowired
+	BoardService bSrvc;
+	
+	private static final Logger log1 = LoggerFactory.getLogger(Board.class);
 	
 	public boolean isLogin(HttpSession session) {
 		String sid = (String) session.getAttribute("SID");
@@ -61,11 +65,13 @@ public class Board {
 	// 게시글 등록 요청 처리함수
 	@RequestMapping("/boardWriteProc.cls")
 	public ModelAndView boardWriteProc(BoardVO bVO, ModelAndView mv, HttpSession session, RedirectView rv) {
+		String sid = (String) session.getAttribute("SID");
 		if(!isLogin(session)) {
 			rv.setUrl("/cls2/member/login.cls");
 			mv.setView(rv);
 			return mv;
 		}
+		/*
 		int cnt = bDao.addBoard(bVO);
 		ArrayList<FileVO> list = null;
 		if(cnt == 1) {
@@ -87,6 +93,14 @@ public class Board {
 			rv.setUrl("/cls2/board/boardList.cls");			
 		} else {
 			rv.setUrl("/cls2/board/boardWrite.cls");
+		}
+		*/
+		try {
+			bSrvc.insertBoard(bVO, rv);
+			log1.info("*** " + sid + " ] 님 게시글 등록 성공 ***");
+		} catch(Exception e) {
+			log1.info("##### " + sid + " ] 님 게시글 등록 실패 #####");
+//			System.out.println("#### 게시글 추가 실패 ####");
 		}
 		mv.setView(rv);
 		return mv;
@@ -171,6 +185,7 @@ public class Board {
 		
 		mv.addObject("nowPage", nowPage);
 		mv.addObject("BNO", bVO.getBno());
+		/*
 		if(bVO.getTitle() != null || bVO.getBody() != null) {
 			int cnt = bDao.boardEdit(bVO);
 			if(cnt != 1) {
@@ -192,6 +207,12 @@ public class Board {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		*/
+		try {
+			bSrvc.editBoard(bVO, mv);			
+		} catch(Exception e) {
+			System.out.println("### 게시글 수정 실패 ###");
 		}
 		mv.addObject("PATH", "/cls2/board/boardDetail.cls");
 		mv.setViewName("board/redirectView");

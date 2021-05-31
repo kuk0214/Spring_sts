@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.servlet.http.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,8 @@ import com.increpas.cls2.vo.MemberVO;
 public class Member {
 	@Autowired
 	MemberDao mDao;
+	
+	private static final Logger log2 = LoggerFactory.getLogger(Member.class);
 	
 	@RequestMapping("/login.cls")
 	public ModelAndView getLogin(HttpSession session, ModelAndView mv, RedirectView rv) {
@@ -78,12 +82,15 @@ public class Member {
 			
 		}
 		mv.setView(rv);
+		log2.info("*** " + mVO.getId() + " ] 님 로그인 ***");
 		return mv;
 	}
 	
 	// 로그아웃 처리
 	@RequestMapping("/logout.cls")
 	public ModelAndView logout(HttpSession session, ModelAndView mv, RedirectView rv) {
+		String sid = (String) session.getAttribute("SID");
+		log2.info("*** " + sid + " ] 님 로그아웃 ***");
 		session.removeAttribute("SID");
 		rv.setUrl("/cls2/");
 		mv.setView(rv);
