@@ -71,6 +71,11 @@
 			}
 			$(location).attr('href', url);
 		});
+		
+		// 설문조사 페이지 이벤트 처리
+		$('#survey').click(function() {
+			$(location).attr('href', "/cls2/survey/surveyList.cls")
+		});
 	});
 </script>
 </head>
@@ -81,8 +86,19 @@
 
 	<div class="w3-content mxw700 w3-center w3-margin-top">
 		<h1 class="w3-margin-top w3-blue w3-card-4 w3-padding">Spring Project</h1>
+<c:if test="${not empty SID && SCOUNT ne 0}">
+		<!-- 설문조사 -->
+			<div class="w3-col w3-padding w3-border-top w3-border-bottom">
+				<h4 class="w3-col s4 w3-text-grey">설문조사</h4>
+				<div class="w3-col s8">
+					<div class="w3-col w3-amber w3-button" id="survey">
+						<h4>설문조사 페이지</h4>
+					</div>
+				</div>
+			</div>
+</c:if>		
 			
-		<!--  수업 예제 링크 버튼 추가 장소 -->
+		<!--  회원 관련 기능 -->
 			<div class="w3-col w3-padding w3-border-bottom">
 				<h4 class="w3-col s4 w3-text-grey">Member Request</h4>
 				<div class="w3-col s8">

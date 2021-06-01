@@ -1,15 +1,24 @@
 package com.increpas.cls2.controller;
 
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.*;
+
+import com.increpas.cls2.dao.*;
 
 @Controller
 public class Test1 {
+	@Autowired
+	SurveyDao sDao;
 	
 	@RequestMapping("/main.cls")
-	public String getMain() {
-		return "main";
+	public ModelAndView getMain(ModelAndView mv) {
+		
+		int cnt = sDao.getPCount();
+		mv.addObject("SCOUNT", cnt);
+		
+		return mv;
 		
 	}
 	
