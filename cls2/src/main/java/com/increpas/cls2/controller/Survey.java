@@ -60,7 +60,14 @@ public class Survey {
 			mv.setView(rv);
 			return mv;
 		}
-		
+		int cnt = sDao.answerCnt(sVO);
+		if(cnt == 1) {
+			mv.addObject("PATH", "/cls2/survey/surveyResult.cls");
+			mv.addObject("SINO", sVO.getSino());
+			mv.addObject("TITLE", sVO.getTitle());
+			mv.setViewName("survey/redirectPage");
+			return mv;
+		}
 		ArrayList<SurveyVO> list = (ArrayList<SurveyVO>) sDao.questList(sVO.getSino());
 		
 		for(SurveyVO s : list) {
@@ -93,6 +100,23 @@ public class Survey {
 		}
 		
 		mv.setView(rv);
+		return mv;
+	}
+	
+	// 설문 응답 결과 조회 요청 처리함수
+	@RequestMapping(value="/surveyResult.cls", params = {"title", "sino"}, method=RequestMethod.POST)
+	public ModelAndView surveyResult(SurveyVO sVO, ModelAndView mv) {
+		ArrayList<SurveyVO> list = (ArrayList<SurveyVO>) sDao.questList(sVO.getSino());
+		
+		for(SurveyVO s : list) {
+			int qno = s.getQno();
+			ArrayList<SurveyVO> l = (ArrayList<SurveyVO>) sDao.getResult(s);
+			s.setList(l);
+		}
+		
+		mv.addObject("TITLE", sVO.getTitle());
+		mv.addObject("LIST", list);
+		mv.addObject("LEN", list.size());
 		return mv;
 	}
 }

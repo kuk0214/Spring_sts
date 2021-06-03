@@ -15,7 +15,7 @@ import java.text.*;
  *
  */
 public class SurveyVO {
-	private int sino, qno, sno, mno, exno, sqgroup, cnt, totalCnt;
+	private int sino, qno, sno, mno, exno, sqgroup, cnt, total;
 	private double per;
 	private String id, title, body, ex, indate, sdate, edate;
 	private Date startdate, enddate, adate;
@@ -76,11 +76,11 @@ public class SurveyVO {
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
-	public int getTotalCnt() {
-		return totalCnt;
+	public int getTotal() {
+		return total;
 	}
-	public void setTotalCnt(int totalCnt) {
-		this.totalCnt = totalCnt;
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	public double getPer() {
 		return per;
@@ -160,7 +160,7 @@ public class SurveyVO {
 		return "SurveyVO : sino=" + sino + ", qno=" + qno + ", sno=" + sno +
 				", mno=" + mno + ", exno=" + exno + 
 				", sqgroup=" + sqgroup + ", cnt=" + 
-				cnt + ", totalCnt=" + totalCnt + ", per=" + 
+				cnt + ", totalCnt=" + total + ", per=" + 
 				per + ", id=" + id + ", title=" + title + 
 				", body=" + body + ", ex=" + ex + ", indate=" + indate ;
 	}

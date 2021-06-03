@@ -285,13 +285,21 @@
 1. 설문 리스트 요청
 	요청내용	: /cls2/survey/surveyList.cls
 	파라미터	: 무
-	컨트롤러	: com.increpas.cls2.controller.survey
+	컨트롤러	: com.increpas.cls2.controller.Survey
 	처리함수	: surveyList()
 	뷰			: /WEB-INF/views/survey/surveyList.jsp
 	
 2. 설문조사 페이지 요청
 	요청내용	: /cls2/survey/survey.cls
-	파라미터	: 
-	컨트롤러	: com.increpas.cls2.controller.survey
+	파라미터	: sino, title
+	컨트롤러	: com.increpas.cls2.controller.Survey
 	처리함수	: surveyDetail()
 	뷰			: /WEB-INF/views/survey/survey.jsp
+	
+3. 설문 결과 페이지 요청
+	요청내용	: /cls2/survey/surveyResult.cls
+	파라미터	: sino, title 
+	컨트롤러	: com.increpas.cls2.controller.Survey
+	처리함수	: surveyResult()
+	뷰			: /WEB-INF/views/survey/surveyResult.jsp
+	

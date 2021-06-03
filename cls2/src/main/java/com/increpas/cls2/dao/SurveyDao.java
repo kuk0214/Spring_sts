@@ -46,4 +46,14 @@ public class SurveyDao {
 	public int insertAnswer(SurveyVO sVO) {
 		return sqlSession.insert("sSQL.addAnswer", sVO);
 	}
+	
+	// 설문 응답 결과 조회 전담 처리함수
+	public List getResult(SurveyVO sVO) {
+		return sqlSession.selectList("sSQL.resultEx", sVO);
+	}
+	
+	// 로그인 회원 설문 참여 카운트 조회 전담 처리함수
+	public int answerCnt(SurveyVO sVO) {
+		return sqlSession.selectOne("sSQL.answerCount", sVO);
+	}
 }
