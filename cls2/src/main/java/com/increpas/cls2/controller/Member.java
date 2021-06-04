@@ -35,8 +35,6 @@ public class Member {
 	@Autowired
 	MemberDao mDao;
 	
-	private static final Logger log2 = LoggerFactory.getLogger(Member.class);
-	
 	@RequestMapping("/login.cls")
 	public ModelAndView getLogin(HttpSession session, ModelAndView mv, RedirectView rv) {
 		if(isLogin(session)) {
@@ -74,6 +72,7 @@ public class Member {
 		if(isLogin(session)) {
 		} else {
 			int cnt = mDao.loginProc(mVO);
+			mVO.setCnt(cnt);
 			if(cnt == 1) {
 				session.setAttribute("SID", mVO.getId());
 			} else {
@@ -82,7 +81,6 @@ public class Member {
 			
 		}
 		mv.setView(rv);
-		log2.info("*** " + mVO.getId() + " ] 님 로그인 ***");
 		return mv;
 	}
 	
@@ -90,7 +88,6 @@ public class Member {
 	@RequestMapping("/logout.cls")
 	public ModelAndView logout(HttpSession session, ModelAndView mv, RedirectView rv) {
 		String sid = (String) session.getAttribute("SID");
-		log2.info("*** " + sid + " ] 님 로그아웃 ***");
 		session.removeAttribute("SID");
 		rv.setUrl("/cls2/");
 		mv.setView(rv);
